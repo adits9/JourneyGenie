@@ -37,7 +37,7 @@ router.post('/register', async (req, res) => {
         
         
         // paylaod || {id: user._id}
-        jwt.sign({id: user._id}, process.env.JWT_SECTET, {
+        jwt.sign({id: user._id}, process.env.JWT_SECRET, {
             expiresIn: 36000 
         }, (err, token) => {
             if(err) throw err
