@@ -4,7 +4,7 @@
 
 To pull code from main branch: `git pull origin main`
 
-To make a different branch: First run `git branch <branch-name>` then `git checkout <branch-name>`
+To make a different branch: First run `git branch <your-branch-name>` then `git checkout <your-branch-name>`
 
 To push code: First run `git add .` then `git commit -m"What you did goes here"` then `git push origin <branch-name>`.
 ## Backend Setup
