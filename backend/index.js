@@ -13,5 +13,5 @@ app.use(morgan('dev')) // for logging
 app.use('/api/v1', require('./routes/posts'))
 app.use('/api/v1', require('./routes/auth'))
 app.use('/api/v1', require('./routes/features'))
-PORT  = process.env.PORT || 5000
+PORT  = process.env.PORT || 4000
 app.listen(PORT, console.log(`SERVER RUNNING ON PORT: ${PORT}`))

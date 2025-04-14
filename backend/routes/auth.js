@@ -53,36 +53,29 @@ router.post('/register', async (req, res) => {
 // POST api/v1/login | public | login exixting user
 router.post('/login', async (req, res) => {
     try {
-        const {email, password} = req.body
-        if( !email || !password){
-            return res.status(400).json({ 
-                msg: 'invalid credentials',
-                success: false 
-            })
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ msg: 'invalid credentials', success: false });
         }
-let user = await User.findOne({email}).select('+password')
-        if(!user ) return res.status(400).json({
-            msg: 'invalid credentials',
-            success: false 
-        })
-const isMatch = await bcrypt.compare(password, user.password)
-        if(!isMatch ) return res.status(400).json({ 
-            msg: 'invalid credentials',
-            success: false 
-        })
-jwt.sign({id: user._id}, process.env.JWT_SECTET, {
-            expiresIn: 36000 
+
+        let user = await User.findOne({ email }).select('+password');
+        if (!user) return res.status(400).json({ msg: 'invalid credentials', success: false });
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({ msg: 'invalid credentials', success: false });
+
+        jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: 36000
         }, (err, token) => {
-            if(err) throw err
-            res.status(200).json({
-                token
-            })
-        })
-} catch (err) {
-        console.log(err)
-        res.status(400).json({success: false})
+            if (err) throw err;
+            res.status(200).json({ token });
+        });
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ success: false });
     }
-})
+});
 // GET api/v1/user | private | get logged in user for the process of auth
 router.get('/user', verifyAuth,  async (req, res) => {
     try {
